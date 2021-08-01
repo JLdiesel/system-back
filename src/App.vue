@@ -1,27 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="app">
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { defineComponent, onMounted } from 'vue';
+import JLRequest from './service';
+interface DataType {
+  data: any;
+  returnCode: string;
+  success: boolean;
+}
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
+  setup() {
+    onMounted(() => {
+      JLRequest.get<DataType>({
+        url: '/home/multidata'
+      }).then((res) => {
+        console.log(res.data);
+        console.log(res.returnCode);
+        console.log(res.success);
+      });
+    });
+    return {};
   }
 });
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app {
+  width: 100%;
+  height: 100%;
 }
 </style>
