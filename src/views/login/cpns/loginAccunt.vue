@@ -5,7 +5,7 @@
         <el-input autofocus v-model="account.name" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password" />
+        <el-input show-password v-model="account.password" />
       </el-form-item>
     </el-form>
   </div>
@@ -15,17 +15,29 @@
 import { ElForm } from 'element-plus';
 import { defineComponent, reactive, ref } from 'vue';
 import { rules } from '../config/account-config';
+import cache from '@/utils/cache';
+import { useStore } from 'vuex';
 export default defineComponent({
   setup() {
+    const store = useStore();
     const formRef = ref<InstanceType<typeof ElForm>>();
     const account = reactive({
-      name: '',
-      password: ''
+      name: cache.getCache('name') ?? '',
+      password: cache.getCache('password') ?? ''
     });
 
-    const loginAction = () => {
+    const loginAction = (iskeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
-        console.log(valid);
+        //1判断是否需要记住密码
+        if (valid) {
+          if (iskeepPassword) {
+            //本地缓存
+            cache.setCache('name', account.name);
+            cache.setCache('password', account.password);
+          }
+        }
+        //2登录验证
+        store.dispatch('login/accountLoginAction', { ...account });
       });
       console.log('account登录');
     };

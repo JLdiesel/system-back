@@ -6,16 +6,16 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import JLRequest from './service';
+/* import JLRequest from './service';
 interface DataType {
   data: any;
   returnCode: string;
   success: boolean;
-}
+} */
 export default defineComponent({
   name: 'App',
   setup() {
-    onMounted(() => {
+    /*   onMounted(() => {
       JLRequest.get<DataType>({
         url: '/home/multidata'
       }).then((res) => {
@@ -23,7 +23,7 @@ export default defineComponent({
         console.log(res.returnCode);
         console.log(res.success);
       });
-    });
+    }); */
     return {};
   }
 });

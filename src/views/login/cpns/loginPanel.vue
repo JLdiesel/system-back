@@ -1,18 +1,18 @@
 <template>
   <div class="login-panel">
     <h1 class="title">后台管理系统</h1>
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i> 账号登录</span>
         </template>
         <login-accunt ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile"></i> 手机登录</span>
         </template>
-        <login-phone />
+        <login-phone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
     <div class="account-control">
@@ -34,13 +34,26 @@ export default defineComponent({
   components: { LoginAccunt, LoginPhone },
 
   setup() {
+    //LoginAccunt原本是对象，调用InstanceType<typeof LoginAccunt>可以把对象转换为类型
     const accountRef = ref<InstanceType<typeof LoginAccunt>>();
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>();
     const iskeepPassword = ref(true);
+    const currentTab = ref('account');
     const loginHandleClick = () => {
       console.log('立即登录');
-      accountRef.value?.loginAction();
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAction(iskeepPassword.value);
+      } else {
+        phoneRef.value?.loginAction();
+      }
     };
-    return { iskeepPassword, loginHandleClick, accountRef };
+    return {
+      iskeepPassword,
+      loginHandleClick,
+      accountRef,
+      currentTab,
+      phoneRef
+    };
   }
 });
 </script>

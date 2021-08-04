@@ -18,7 +18,6 @@ class JLRequest {
     //添加所有实例都有的拦截器
     this.instance.interceptors.request.use(
       (res) => {
-        console.log('所有实例都有的请求成功拦截器');
         return res;
       },
       (err) => {
@@ -27,7 +26,6 @@ class JLRequest {
     );
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有实例都有的响应成功拦截器');
         const data = res.data;
 
         return data;
@@ -58,7 +56,7 @@ class JLRequest {
   get<T>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'GET' });
   }
-  POST<T>(config: JLRequestConfig): Promise<T> {
+  post<T>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'POST' });
   }
   delete<T>(config: JLRequestConfig): Promise<T> {
