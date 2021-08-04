@@ -1,1 +1,3 @@
-export interface IrootState {}
+export interface IrootState {
+  name: string;
+}
