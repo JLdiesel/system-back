@@ -35,6 +35,7 @@ module.exports = {
       .set('@', path.resolve(__dirname, 'src'))
       .set('components', '@/components')
       .set('utils', '@/utils')
-      .set('service', '@/service');
+      .set('service', '@/service')
+      .set('assets', '@/assets');
   }
 };
