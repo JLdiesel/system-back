@@ -9,6 +9,7 @@ import {
 import router from '@/router';
 import cache from '@/utils/cache';
 import { IAccount } from '@/service/login/types';
+import { mapMenusToRoutes } from '@/utils/mapMenus';
 const loginModule: Module<ILoginState, IrootState> = {
   namespaced: true,
   state() {
@@ -28,6 +29,13 @@ const loginModule: Module<ILoginState, IrootState> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus;
+
+      //映射userMenus到Routes
+      const routes = mapMenusToRoutes(userMenus);
+      // console.log(routes);
+      routes.forEach((route) => router.addRoute('main', route));
+
+      //讲routes映射到router.main.children
     }
   },
   actions: {

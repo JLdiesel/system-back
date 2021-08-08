@@ -8,18 +8,27 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/login.vue')
   },
   {
     path: '/main',
+    name: 'main',
     component: () => import('@/views/main/main.vue')
+    //根据userMenus决定子路由
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'nofFound',
+
+    component: () => import('@/views/notFound.vue')
   }
 ];
 const router = createRouter({
   routes,
   history: createWebHashHistory()
 });
-
+//导航守卫
 router.beforeEach((to) => {
   //如果用户想进登录页就不验证token
   if (to.path !== '/login') {

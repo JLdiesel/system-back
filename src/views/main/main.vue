@@ -7,7 +7,11 @@
       <el-header class="page-header">
         <nav-header @fold-change="handleFoldChange" />
       </el-header>
-      <el-main class="page-content">Main</el-main>
+      <el-main class="page-content">
+        <div class="page-inner">
+          <router-view></router-view>
+        </div>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -45,6 +49,10 @@ export default defineComponent({
 }
 .page-content {
   height: calc(100%-48px);
+  .page-inner {
+    background-color: #fff;
+    border-radius: 5px;
+  }
 }
 .el-header,
 .el-footer {

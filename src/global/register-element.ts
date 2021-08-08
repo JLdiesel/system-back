@@ -16,11 +16,29 @@ import {
   ElMenu,
   ElSubmenu,
   ElMenuItem,
-  ElMenuItemGroup
+  ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker
 } from 'element-plus';
 import { App } from 'vue';
 
 const components = [
+  ElDatePicker,
+  ElOption,
+  ElSelect,
+  ElRow,
+  ElCol,
+  ElAvatar,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
   ElMenu,
   ElSubmenu,
   ElMenuItem,

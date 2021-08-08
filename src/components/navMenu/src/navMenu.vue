@@ -22,7 +22,10 @@
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="hanldeMenuClick(subitem)"
+              >
                 <i v-if="subitem.icon" :class="subitem.icon"></i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -47,6 +50,7 @@
 import { defineComponent, computed } from 'vue';
 // import { useStore } from 'vuex';
 import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
 export default defineComponent({
   props: {
     collapse: {
@@ -56,14 +60,20 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
     const userMenus = computed(() => store.state.login.userMenus);
     const handleOpen = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
+    const hanldeMenuClick = (item: any) => {
+      router.push({
+        path: item.url ?? '/notFound'
+      });
+    };
     const handleClose = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
-    return { handleClose, handleOpen, userMenus };
+    return { handleClose, handleOpen, userMenus, hanldeMenuClick };
   }
 });
 </script>
