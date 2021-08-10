@@ -43,6 +43,7 @@ const loginModule: Module<ILoginState, IrootState> = {
       //实现登录
       const loginResult = await accountLoginRequest(payload);
       const { id, token } = loginResult.data;
+
       commit('changeToken', token);
       //本地缓存token
       cache.setCache('token', token);
@@ -55,7 +56,6 @@ const loginModule: Module<ILoginState, IrootState> = {
       //获取用户路由权限
       const userMenusResult = await requsetUserMenuByRoleId(userInfo.role.id);
       const userMenus = userMenusResult.data;
-      console.log(userMenus);
       cache.setCache('userMenus', userMenus);
 
       commit('changeUserMenus', userMenus);

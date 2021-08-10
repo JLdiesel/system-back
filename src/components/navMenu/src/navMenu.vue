@@ -5,7 +5,7 @@
       <span class="title">百越庭</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical-demo"
       :collapse="collapse"
       background-color="#0c2135"
@@ -47,10 +47,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 // import { useStore } from 'vuex';
 import { useStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { pathMapToMenu } from '@/utils/mapMenus';
 export default defineComponent({
   props: {
     collapse: {
@@ -61,7 +62,13 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
+    //拿到路由路径
+    const currentPath = route.path;
+
     const userMenus = computed(() => store.state.login.userMenus);
+    const menu = pathMapToMenu(userMenus.value, currentPath);
+    const defaultValue = ref(menu.id + '');
     const handleOpen = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
@@ -73,7 +80,13 @@ export default defineComponent({
     const handleClose = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
-    return { handleClose, handleOpen, userMenus, hanldeMenuClick };
+    return {
+      handleClose,
+      handleOpen,
+      userMenus,
+      hanldeMenuClick,
+      defaultValue
+    };
   }
 });
 </script>

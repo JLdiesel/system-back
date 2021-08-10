@@ -6,17 +6,21 @@
       @click="handleFoldChange"
     ></i>
     <div class="content">
-      <div>面包屑</div>
+      <JLBreadCrumb :breadcrumbs="breadcrumbs" />
       <userInfo></userInfo>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import userInfo from './userInfo.vue';
+import JLBreadCrumb, { BreadCrumb } from '@/common/breadcrumb';
+import { pathMapBreadcrumbs } from '@/utils/mapMenus';
+import { useStore } from '@/store';
 export default defineComponent({
-  components: { userInfo },
+  components: { userInfo, JLBreadCrumb },
   emits: ['foldChange'],
   setup(props, { emit }) {
     const isFold = ref(false);
@@ -24,7 +28,16 @@ export default defineComponent({
       isFold.value = !isFold.value;
       emit('foldChange', isFold.value);
     };
-    return { isFold, handleFoldChange };
+    //面包屑的数据
+    const store = useStore();
+
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus;
+      const route = useRoute();
+      const routePath = route.path;
+      return pathMapBreadcrumbs(userMenus, routePath);
+    });
+    return { isFold, handleFoldChange, breadcrumbs };
   }
 });
 </script>

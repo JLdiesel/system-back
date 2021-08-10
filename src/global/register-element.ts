@@ -25,7 +25,11 @@ import {
   ElCol,
   ElSelect,
   ElOption,
-  ElDatePicker
+  ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn
 } from 'element-plus';
 import { App } from 'vue';
 
@@ -56,7 +60,11 @@ const components = [
   ElTabPane,
   ElTabs,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn
 ];
 
 export default function (app: App): void {

@@ -1,9 +1,20 @@
 import { IFormItem, IForm } from '@/common/form';
 
 const formItems: IFormItem[] = [
-  { label: '用户名', placeholder: '请输入用户名', type: 'input' },
-  { label: '密码', placeholder: '请输入密码', type: 'password' },
   {
+    label: '用户名',
+    placeholder: '请输入用户名',
+    type: 'input',
+    filed: 'name'
+  },
+  {
+    label: '密码',
+    placeholder: '请输入密码',
+    type: 'password',
+    filed: 'password'
+  },
+  {
+    filed: 'sport',
     label: '喜欢的运动',
     placeholder: '请选择喜欢的运动',
     type: 'select',
@@ -13,6 +24,7 @@ const formItems: IFormItem[] = [
     ]
   },
   {
+    filed: 'createTime',
     label: '创建时间',
     placeholder: '请选择创建时间范围',
     type: 'datepicker',

@@ -1,24 +1,41 @@
 <template>
   <div class="user">
-    <div class="search">
-      <JLForm v-bind="formConfig" />
-    </div>
+    <PageSearch :formConfig="formConfig" />
+    <el-table :data="userList" border style="width: 100%">
+      <el-table-column prop="name" label="用户名" min-width="180">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import JLForm from '@/common/form';
+import { computed, defineComponent } from 'vue';
 import { formConfig } from './config/search.config';
+import PageSearch from '@/components/pageSearch';
+import { useStore } from '@/store';
 export default defineComponent({
-  components: {
-    JLForm
-  },
+  components: { PageSearch },
   name: 'user',
   setup() {
-    return { formConfig };
+    const store = useStore();
+    store.dispatch('system/getPageListAction', {
+      pageUrl: '/users/list',
+      queryInfo: {
+        offser: 0,
+        size: 10
+      }
+    });
+    const propList = [{ prop: `` }];
+    const userList = computed(() => store.state.system.userList);
+    const userCount = computed(() => store.state.system.userCount);
+    return { formConfig, userList, userCount };
   }
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.btns {
+  text-align: right;
+  padding: 0px 50px 20px 0;
+}
+</style>

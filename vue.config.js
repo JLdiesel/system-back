@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   outputDir: './build',
-  devServer: {
+  /*  devServer: {
     proxy: {
       '^/api': {
         target: 'http://152.136.185.210:5000',
@@ -11,7 +11,7 @@ module.exports = {
         changeOrigin: true
       }
     }
-  },
+  }, */
   // 配置别名1
   /* configureWebpack: {
     resolve: {

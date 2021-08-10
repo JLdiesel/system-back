@@ -35,7 +35,7 @@ class JLRequest {
       }
     );
   }
-  requset<T>(config: JLRequestConfig): Promise<T> {
+  requset<T = any>(config: JLRequestConfig): Promise<T> {
     return new Promise((resolve, rejecj) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
@@ -53,16 +53,16 @@ class JLRequest {
         });
     });
   }
-  get<T>(config: JLRequestConfig): Promise<T> {
+  get<T = any>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'GET' });
   }
-  post<T>(config: JLRequestConfig): Promise<T> {
+  post<T = any>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'POST' });
   }
-  delete<T>(config: JLRequestConfig): Promise<T> {
+  delete<T = any>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'DELETE' });
   }
-  patch<T>(config: JLRequestConfig): Promise<T> {
+  patch<T = any>(config: JLRequestConfig): Promise<T> {
     return this.requset<T>({ ...config, method: 'PATCH' });
   }
 }

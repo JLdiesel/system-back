@@ -12,7 +12,8 @@ import 'element-plus/lib/theme-chalk/index.css'; */
 import 'element-plus/lib/theme-chalk/base.css';
 import store, { setupStore } from './store';
 const app = createApp(App);
-app.use(router).use(store).use(registerApp);
+
 setupStore();
+app.use(router).use(store).use(registerApp);
 // .use(ElementPlus)
 app.mount('#app');
