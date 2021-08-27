@@ -12,7 +12,7 @@
       <el-dropdown-menu>
         <el-dropdown-item>用户信息</el-dropdown-item>
         <el-dropdown-item>系统管理</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-close"
+        <el-dropdown-item icon="el-icon-circle-close" @click="handleExitClick"
           >退出登录</el-dropdown-item
         >
       </el-dropdown-menu>
@@ -22,12 +22,21 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from '@/store';
+
+import cache from '@/utils/cache';
 export default defineComponent({
   setup() {
     const store = useStore();
+    const router = useRouter();
     const name = computed(() => store.state.login.userInfo.name);
-    return { name };
+
+    const handleExitClick = () => {
+      cache.removeCache('token');
+      router.push('main');
+    };
+    return { name, handleExitClick };
   }
 });
 </script>

@@ -9,14 +9,15 @@ import {
 import router from '@/router';
 import cache from '@/utils/cache';
 import { IAccount } from '@/service/login/types';
-import { mapMenusToRoutes } from '@/utils/mapMenus';
+import { mapMenusToPermissions, mapMenusToRoutes } from '@/utils/mapMenus';
 const loginModule: Module<ILoginState, IrootState> = {
   namespaced: true,
   state() {
     return {
       token: '',
       userInfo: '',
-      userMenus: []
+      userMenus: [],
+      permissions: []
     };
   },
   getters: {},
@@ -33,13 +34,15 @@ const loginModule: Module<ILoginState, IrootState> = {
       //映射userMenus到Routes
       const routes = mapMenusToRoutes(userMenus);
       // console.log(routes);
+      //讲routes映射到router.main.children
       routes.forEach((route) => router.addRoute('main', route));
 
-      //讲routes映射到router.main.children
+      const result = mapMenusToPermissions(userMenus);
+      state.permissions = result;
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       //实现登录
       const loginResult = await accountLoginRequest(payload);
       const { id, token } = loginResult.data;
@@ -58,10 +61,12 @@ const loginModule: Module<ILoginState, IrootState> = {
       const userMenus = userMenusResult.data;
       cache.setCache('userMenus', userMenus);
 
+      dispatch('getInitialDataAction', null, { root: true });
+
       commit('changeUserMenus', userMenus);
       router.push('/main');
     },
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = cache.getCache('token');
       if (token) {
         commit('changeToken', token);
@@ -74,6 +79,7 @@ const loginModule: Module<ILoginState, IrootState> = {
       if (userMenus) {
         commit('changeUserMenus', userMenus);
       }
+      dispatch('getInitialDataAction', null, { root: true });
     }
     /*   phoneLoginAction({ commit }, payload: any) {
       console.log('执行phoneaction');

@@ -14,10 +14,6 @@ export default new JLRequest({
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log(
-          config.headers.Authorization ===
-            'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImNvZGVyd2h5Iiwicm9sZSI6eyJpZCI6MSwibmFtZSI6Iui2hee6p-euoeeQhuWRmCJ9LCJpYXQiOjE2Mjg2MDMzODgsImV4cCI6MTYzMTE5NTM4OH0.RC_ZOnA783RdztpPL_eovrQJ9noF8j0uttFqII9FwC7MsY53zyVnExB2Hor5Rj23D8TLgBmmTCFzZ5EuzVmTOwjGKsKfuGlsAmlxmqLKpbeqZBpp46p3qn_sydFLVCVDwCGPKgMSOTtkvLSuSJr07pGL-ESYWc68ej_p9Kdil5U'
-        );
       }
       return config;
     },

@@ -1,30 +1,22 @@
 <template>
-  <div class="app">
-    <router-view />
-  </div>
+  <el-config-provider :locale="locale">
+    <div class="app">
+      <router-view /></div
+  ></el-config-provider>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
-/* import JLRequest from './service';
-interface DataType {
-  data: any;
-  returnCode: string;
-  success: boolean;
-} */
+import { defineComponent } from 'vue';
+import { ElConfigProvider } from 'element-plus';
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 export default defineComponent({
+  components: {
+    [ElConfigProvider.name]: ElConfigProvider
+  },
   name: 'App',
   setup() {
-    /*   onMounted(() => {
-      JLRequest.get<DataType>({
-        url: '/home/multidata'
-      }).then((res) => {
-        console.log(res.data);
-        console.log(res.returnCode);
-        console.log(res.success);
-      });
-    }); */
-    return {};
+    const locale = zhCn;
+    return { locale };
   }
 });
 </script>
